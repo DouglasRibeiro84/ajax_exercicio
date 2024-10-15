@@ -10,29 +10,51 @@
 <body>
     <header>
         <div class="container">
-            <img class="profile-avatar" src="https://via.placeholder.com/180x180" alt=".">
-            <h1 class="profile-name">Gian Souza</h1>
-            <h2 class="profile-username">@ogiansouza</h2>
+            <img class="profile-avatar" id="avatar" src="https://via.placeholder.com/180x180" alt=".">
+            <h1 class="profile-name" id="nome">aaa</h1>
+            <h2 class="profile-username" id="usuario">@ogiansouza</h2>
             <ul class="numbers">
-                <li class="numbers-item">
+                <li class="numbers-item" id="repositorio">
                     <h4>Repositórios</h4>
                     5
                 </li>
-                <li class="numbers-item">
+                <li class="numbers-item" id="seguidores">
                     <h4>Seguidores</h4>
                     5
                 </li>
-                <li class="numbers-item">
+                <li class="numbers-item" id="seguindo">
                     <h4>Seguindo</h4>
                     5
                 </li>
             </ul>
-            <a href="#" class="profile-link">Ver no Github</a>
+            <a href="#" class="profile-link" id="github">Ver no Github</a>
         </div>
     </header>
 
     <script>
-        // http://api.github.com/users/DouglasRibeiro84 
+        document.addEventListener('DOMContentLoaded', function() {
+            const nome = document.querySelector("#nome");
+            const usuario = document.querySelector("#usuario");
+            const repositorio = document.querySelector("#repositorio");
+            const seguidores = document.querySelector("#seguidores");
+            const avatar = document.querySelector("#avatar");
+            const seguindo = document.querySelector("#seguindo");
+            const github = document.querySelector("#github");
+
+            fetch('https://api.github.com/users/DouglasRibeiro84')
+            .then(function(resposta){
+                return resposta.json();
+            })
+            .then(function(json){
+                nome.innerText = json.name
+                usuario.innerText = json.login
+                avatar.src = json.avatar_url
+                repositorio.innerText = json.public_repos
+                seguidores.innerText = json.following
+                seguindo.innerText = json.followers
+                github.href = json.html_url
+            })
+        })
     </script>
 </body>
 </html>
